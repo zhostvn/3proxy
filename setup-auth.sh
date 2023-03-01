@@ -90,11 +90,11 @@ upload_proxy() {
     echo "Password: ${PASS}"
 
 }
-pwd=$(</dev/urandom tr -dc A-Z-a-z-0-9 | head -c5;echo)
+
 gen_data() {
 	
     seq $FIRST_PORT $LAST_PORT | while read port; do
-        echo "proxy/$(pwd)/$IP4/$port/$(gen64 $IP6)"
+        echo "proxy/AU1ke1Zu6atHLn67/$IP4/$port/$(gen64 $IP6)"
     done
 }
 
