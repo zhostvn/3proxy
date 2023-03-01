@@ -56,11 +56,11 @@ setgid 65535
 setuid 65535
 stacksize 6291456 
 flush
-auth none
+auth yes
 
 users $(awk -F "/" 'BEGIN{ORS="";} {print $1 ":CL:" $2 " "}' ${WORKDATA})
 
-$(awk -F "/" '{print "auth none\n" \
+$(awk -F "/" '{print "auth yes\n" \
 "allow " $1 "\n" \
 "proxy -6 -n -a -p" $4 " -i" $3 " -e"$5"\n" \
 "flush\n"}' ${WORKDATA})
@@ -84,6 +84,7 @@ upload_proxy() {
     echo "Password: ${PASS}"
 
 }
+
 gen_data() {
     seq $FIRST_PORT $LAST_PORT | while read port; do
         echo "ngockieu/doremon/$IP4/$port/$(gen64 $IP6)"
@@ -103,7 +104,6 @@ EOF
 }
 echo "installing apps"
 apt-get update
-yum -y install gcc net-tools bsdtar zip make >/dev/null
 apt-get -y install gcc net-tools libarchive-tools zip make >/dev/null
 install_3proxy
 
