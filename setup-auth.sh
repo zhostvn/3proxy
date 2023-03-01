@@ -5,7 +5,7 @@ random() {
 }
 
 random2() {
-	</dev/urandom tr -dc _A-Z-a-z-0-9 | head -c5
+	</dev/urandom tr -dc A-Z-a-z-0-9 | head -c5
 	echo
 }
 	   
@@ -112,8 +112,8 @@ apt-get update
 apt-get -y install gcc net-tools libarchive-tools zip make >/dev/null
 install_3proxy
 
-echo "working folder = /home/proxy-installer"
-WORKDIR="/home/proxy-installer"
+echo "working folder = /home/zhost"
+WORKDIR="/home/zhost"
 WORKDATA="${WORKDIR}/data.txt"
 mkdir $WORKDIR && cd $_
 
