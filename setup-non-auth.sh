@@ -1,6 +1,8 @@
 #!/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 apt install libarchive-tools make make-guile -y
+apt install libarchive-tools make -y
+apt install make-guile -y
 random() {
 	tr </dev/urandom -dc A-Za-z0-9 | head -c5
 	echo
