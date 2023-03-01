@@ -108,7 +108,7 @@ apt-get -y install gcc net-tools libarchive-tools zip make >/dev/null
 install_3proxy
 
 echo "working folder = /home/proxy-installer"
-WORKDIR="/home/proxy-installer"
+WORKDIR="/home/zhost"
 WORKDATA="${WORKDIR}/data.txt"
 mkdir $WORKDIR && cd $_
 
