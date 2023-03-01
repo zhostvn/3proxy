@@ -1,6 +1,6 @@
 #!/bin/sh
 random() {
-	tr </dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-10}
+	tr </dev/urandom -dc A-Za-z0-9 | head -c5
 	echo
 }
 
@@ -23,7 +23,7 @@ install_3proxy() {
     make -f Makefile.Linux
     mkdir -p /usr/local/etc/3proxy/{bin,logs,stat}
     mv /3proxy/3proxy-0.9.3/bin/3proxy /usr/local/etc/3proxy/bin/
-    wget https://raw.githubusercontent.com/zhostvn/3proxy/main/3proxy.service  --output-document=/3proxy/3proxy-0.9.3/scripts/3proxy.service2
+    wget https://raw.githubusercontent.com/trangtrau/random-agent-spoofer/master/3proxy.service  --output-document=/3proxy/3proxy-0.9.3/scripts/3proxy.service2
     cp /3proxy/3proxy-0.9.3/scripts/3proxy.service2 /usr/lib/systemd/system/3proxy.service
     systemctl link /usr/lib/systemd/system/3proxy.service
     systemctl daemon-reload
@@ -56,11 +56,11 @@ setgid 65535
 setuid 65535
 stacksize 6291456 
 flush
-auth yes
+auth strong
 
 users $(awk -F "/" 'BEGIN{ORS="";} {print $1 ":CL:" $2 " "}' ${WORKDATA})
 
-$(awk -F "/" '{print "auth yes\n" \
+$(awk -F "/" '{print "auth strong\n" \
 "allow " $1 "\n" \
 "proxy -6 -n -a -p" $4 " -i" $3 " -e"$5"\n" \
 "flush\n"}' ${WORKDATA})
@@ -84,7 +84,6 @@ upload_proxy() {
     echo "Password: ${PASS}"
 
 }
-
 gen_data() {
     seq $FIRST_PORT $LAST_PORT | while read port; do
         echo "ngockieu/doremon/$IP4/$port/$(gen64 $IP6)"
@@ -104,11 +103,12 @@ EOF
 }
 echo "installing apps"
 apt-get update
+yum -y install gcc net-tools bsdtar zip make >/dev/null
 apt-get -y install gcc net-tools libarchive-tools zip make >/dev/null
 install_3proxy
 
 echo "working folder = /home/proxy-installer"
-WORKDIR="/home/zhost"
+WORKDIR="/home/proxy-installer"
 WORKDATA="${WORKDIR}/data.txt"
 mkdir $WORKDIR && cd $_
 
