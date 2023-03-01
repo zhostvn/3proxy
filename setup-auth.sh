@@ -4,6 +4,12 @@ random() {
 	echo
 }
 
+random2() {
+	</dev/urandom tr -dc _A-Z-a-z-0-9 | head -c5
+	echo
+}
+	   
+
 array=(1 2 3 4 5 6 7 8 9 0 a b c d e f)
 main_interface=$(ip route get 8.8.8.8 | awk -- '{printf $5}')
 
@@ -86,7 +92,7 @@ upload_proxy() {
 }
 gen_data() {
     seq $FIRST_PORT $LAST_PORT | while read port; do
-        echo "ngockieu/doremon/$IP4/$port/$(gen64 $IP6)"
+        echo "proxy/$(random2)/$IP4/$port/$(gen64 $IP6)"
     done
 }
 
@@ -103,7 +109,6 @@ EOF
 }
 echo "installing apps"
 apt-get update
-yum -y install gcc net-tools bsdtar zip make >/dev/null
 apt-get -y install gcc net-tools libarchive-tools zip make >/dev/null
 install_3proxy
 
