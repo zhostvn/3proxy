@@ -5,7 +5,7 @@ random() {
 }
 
 random2() {
-	</dev/urandom tr -dc A-Z-a-z-0-9 | head -c5
+	</dev/urandom tr -dc A-Z-a-z-0-9 | head -c10
 	echo
 }
 	   
@@ -91,12 +91,14 @@ upload_proxy() {
 
 }
 
+mk=$(</dev/urandom tr -dc A-Z-a-z-0-9 | head -c10;echo)
+
 gen_data() {
-	
     seq $FIRST_PORT $LAST_PORT | while read port; do
-        echo "proxy/AU1ke1Zu6atHLn67/$IP4/$port/$(gen64 $IP6)"
+        echo "proxy/$mk/$IP4/$port/$(gen64 $IP6)"
     done
 }
+
 
 gen_iptables() {
     cat <<EOF
