@@ -115,3 +115,5 @@ rm -rf /root/setup.sh
 rm -rf /root/3proxy-3proxy-0.8.6
 
 echo "Starting Proxy"
+cd $WORKDIR
+ls -l
